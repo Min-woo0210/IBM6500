@@ -1,0 +1,134 @@
+---
+title: "M02-Introduction to Data Science in R-Reflection"
+author: "Woo, Jungmin"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+format: 
+  html: 
+    toc: true
+    toc-depth: 4
+    toc-expand: 2
+    number-sections: true
+    code-link: true
+    code-fold: true
+    code-tools: true
+    code-overflow: wrap
+    theme: cosmo
+    embed-resources: true
+editor: visual
+execute: 
+  freeze: auto
+---
+
+## Introduction
+
+> This document is my reflection on Module 2: Introduction to Data Science in R. Below, I restate each prompt and provide my response directly underneath, organized by section.
+
+::: callout-note
+## How this report is organized
+
+Each major theme from the module is presented as its own section. Within each section, I first quote the original prompt in *italics*, then provide my full response below it.
+:::
+
+## New Things Learned about Reproducible Data Science and Literate Coding {#sec-reproducibility}
+
+*Prompt: Summarize new things you learned in this module about reproducible data science and literate coding.*
+
+Before this module, I thought of "writing code" and "writing about my analysis" as two separate tasks: I would run a script, then copy results into a Word document or slide deck by hand. This module introduced me to **literate coding**, the idea that code, narrative explanation, and output can live in a single document that is both human-readable and executable. Quarto documents (`.qmd` files) let me interleave prose and R code chunks so that the final report is generated directly from the analysis rather than reconstructed afterward.
+
+This directly supports **reproducibility**: because the code that produced a table or figure sits right next to the explanation of it, anyone (including future me) can re-run the file and get the same result, as long as the same data and package versions are available. I also learned that reproducibility is not just about "does the code run again," but about the whole pipeline being transparent — from raw data, to cleaning, to analysis, to the final formatted report — so that every step can be inspected and re-executed.
+
+A few specific things stood out as new to me:
+
+- Using an R Project (`.Rproj`) to fix the working directory automatically, instead of hardcoding file paths.
+- The YAML header controlling both the *appearance* and the *behavior* of the rendered report (e.g., `embed-resources: true` for a self-contained HTML file that doesn't break if I move it).
+- The distinction between writing a report once versus building a reproducible *pipeline* that regenerates the report whenever the underlying data changes.
+
+## Reflections on the Quarto Lecture {#sec-quarto-lecture}
+
+*Prompt: Summarize the instructor's lecture about Quarto that you found impressive. Do you see yourself using Quarto every day for your job or study, like taking notes in your class or preparing a presentation? More eye-catching effects will be introduced in later modules.*
+
+<!-- WRITE YOUR ANSWER HERE -->
+
+The part of the lecture I found most impressive was how much a report's *appearance and structure* can be controlled almost entirely from the YAML header, without touching the content of the document itself. Toggling things like a table of contents, section numbering, code folding, and themes felt closer to configuring a publishing system than "writing a document," which changed how I think about report-writing as a workflow rather than a one-off formatting task.
+
+I do see myself using Quarto regularly, though probably not for *every single* piece of writing. For structured, technical work — class notes that mix explanation with code, homework that needs to show both my reasoning and my output, or a presentation that pulls directly from an analysis — Quarto is a clear upgrade over juggling a separate script and a separate document. For quick, informal notes I will probably still reach for something lighter, but for anything I might need to revisit, share, or defend later, literate coding in Quarto is now my default.
+
+::: callout-tip
+## Personal takeaway
+
+The feature I was most impressed by was `code-fold: true` combined with `code-tools`: it lets a reader see a clean, narrative-first report by default, while still giving them a one-click way to inspect (or copy) the underlying code if they want to.
+:::
+
+## The Reproducibility Crisis {#sec-repro-crisis}
+
+*Prompt: Summarize the video presentation about reproducibility crisis. What do you think about reproducible crisis in your field? How can Quarto help address the concerns you have about reproducibility in the line of your work?*
+
+<!-- WRITE YOUR ANSWER HERE -->
+
+The video described the "reproducibility crisis" as the widely documented problem, particularly visible in psychology and biomedical research, where a large share of published findings cannot be replicated when other researchers re-run the same study or re-analyze the same data. Contributing causes discussed included selective reporting of significant results, undocumented analysis steps, manual copy-pasting of numbers between tools, and the general lack of a standard way to share code and data alongside a paper.
+
+**\[Personalize this paragraph with your own field.\]** In my field, reproducibility concerns show up as \[describe a real or plausible scenario — e.g., "spreadsheet-based analyses where formulas are edited manually and the original raw data is overwritten," or "reports where the exact data cutoff or filtering criteria are not documented, making it hard to reconcile numbers months later"\].
+
+Quarto addresses several of these concerns directly: because code and narrative live in the same file, the exact steps used to go from raw data to final result are always visible and re-runnable, rather than existing only in the analyst's memory or a series of manual spreadsheet edits. Version-controlling a `.qmd` file (e.g., via GitHub) also means every change to the analysis is tracked over time, so it is possible to see not just the final report but the full history of how it evolved.
+
+## The Tidyverse Ecosystem {#sec-tidyverse}
+
+*Prompt: Summarize what you learned in this module about the Tidyverse ecosystem in R. What can you do with R?*
+
+<!-- WRITE YOUR ANSWER HERE -->
+
+The Tidyverse is a collection of R packages built around a shared philosophy and consistent syntax for data science: every function tends to take a data frame (specifically a "tibble") as its first argument and return a data frame, which makes it natural to chain multiple operations together using the pipe operator (`|>` or `%>%`). This module introduced the core packages in the ecosystem and how they cover different stages of a typical data workflow — importing, cleaning, transforming, visualizing, and communicating results.
+
+More broadly, this module showed me that R is not just a statistics calculator; it is a full environment for the entire data science lifecycle, from reading in messy raw data, to reshaping and cleaning it, to modeling, to producing a polished, shareable report — all within one connected toolchain.
+
+::: panel-tabset
+## dplyr
+
+Used for data manipulation: filtering rows, selecting columns, creating new variables, grouping, and summarizing data with a small, consistent set of verbs (`filter()`, `select()`, `mutate()`, `group_by()`, `summarize()`).
+
+## ggplot2
+
+Used for building data visualizations layer by layer (the "grammar of graphics"), starting from raw data and mapping variables to visual elements like axes, color, and size.
+
+## tidyr
+
+Used for reshaping data between "wide" and "long" formats and handling missing values, so that data is in the right structure before analysis or plotting.
+:::
+
+## Two Packages Beyond Tidyverse, Base R, and Quarto {#sec-packages}
+
+*Prompt: Refer to the video introducing 20 packages. Among the various packages introduced, choose two packages beyond the Tidyverse ecosystem, base R, and Quarto that could enhance your job/career. Tell me why you think so.*
+
+```{=html}
+<!-- 
+  WRITE YOUR ANSWER HERE. 
+  Replace the two packages below with the two YOU actually chose from the video 
+  and connect them to your specific field/career, not a generic one. 
+-->
+```
+
+| Package | What it does | Why it helps my career |
+|------------------------|------------------------|------------------------|
+| `shiny` | Builds interactive web apps and dashboards directly from R code, without needing separate front-end development. | Would let me turn a one-off analysis into a live dashboard that colleagues without R skills can explore themselves, instead of sending them a static report. |
+| `plumber` | Turns R functions into a web API, so an R-based model or calculation can be called from other software. | Would let me expose an analysis or predictive model as a service that other systems (or a web app) can call programmatically, rather than re-running R scripts manually every time. |
+
+: Two packages relevant to my career
+
+As shown in @tbl-packages, both packages I chose move R output beyond a static report and into something interactive or automatically callable, which is the direction I would like my own work to head — less "send a PDF," more "give people a tool."
+
+## R vs. Python Debate {#sec-r-vs-python}
+
+*Prompt: Refer to the debate on R vs. Python. What is your take on this debate? In your response, consider how Quarto enables people using R and Python in the same team to still collaborate, as illustrated in the video "Mine Çetinkaya-Rundel & Julia Stewart Lowndes \| Hello Quarto: Share, Collaborate, Teach, Reimagine".*
+
+<!-- WRITE YOUR ANSWER HERE -->
+
+The R vs. Python debate often gets framed as an either/or choice, but the more I learn the more it seems like the two languages are simply optimized for different centers of gravity: R (and the Tidyverse in particular) is especially strong for statistical analysis, data wrangling, and quickly producing polished reports and visualizations, while Python tends to have the edge in general-purpose programming, production software engineering, and large-scale machine learning/deep learning infrastructure. My take is that the "debate" matters less for individual hobby projects than it does for teams, where the real question becomes how people using different tools can still work together.
+
+This is where Quarto changes the calculus. Because Quarto documents are not R-specific — they support both R and Python code chunks in the same document (and even in the same rendered report) — a team does not have to standardize on one language to collaborate on a single deliverable. As the *Hello Quarto* talk illustrates, this lets a team where some members prefer Python and others prefer R still produce one shared, reproducible artifact, rather than maintaining separate reports in separate ecosystems.[^1]
+
+[^1]: Mine Çetinkaya-Rundel & Julia Stewart Lowndes, "Hello Quarto: Share, Collaborate, Teach, Reimagine," YouTube, <https://www.youtube.com/watch?v=p7Hxu4coDl8&t=1717s>.
+
+## Appendix {#sec-appendix}
+
+- GitHub Repository: <https://github.com/Min-woo0210/IBM6500>
+- GitHub Pages: <https://min-woo0210.github.io/IBM6500>
