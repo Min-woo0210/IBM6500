@@ -1,0 +1,86 @@
+---
+title: "W02-Reflection Essay-Introduction to Positron"
+author: "Woo, Jungmin"
+date: '`r format(Sys.time())`'
+format: 
+  html: 
+    toc: true
+    toc-depth: 4
+    toc-expand: 2
+    number-sections: true
+    code-link: true
+    code-fold: true
+    code-tools: true
+    code-overflow: wrap
+    theme: cosmo
+    embed-resources: true
+editor: visual
+execute: 
+  freeze: auto
+---
+
+## Introduction
+
+> This document is my reflection on Module 3 (W06): Introduction to Positron. Below, I restate each prompt and provide my response directly underneath, organized by section.
+
+::: callout-note
+## How this report is organized
+
+Each prompt from the assignment is quoted in *italics*, followed directly by my response.
+:::
+
+## Getting Familiar with Positron {#sec-positron-intro}
+
+*Prompt: Download and Install Positron. As you watch the videos in Step 1 and Step 3, follow the activities in the video and be familiar with Positron.*
+
+```{=html}
+<!-- Tip: briefly describe what you did — installed Positron, opened a project, 
+     ran some R code, explored the interface — following along with the videos. -->
+```
+
+Following the Step 1 and Step 3 videos, I downloaded and installed Positron and opened a new project folder, mirroring the workflow I had previously used to set up an R Project in RStudio. I explored the main panels — the editor, the console, the variables/environment pane, and the Plots viewer — and ran a short R script to confirm that my existing packages and working directory carried over correctly. I also opened a `.qmd` file inside Positron to check that Quarto rendering works the same way it did in RStudio.
+
+## Positron vs. RStudio {#sec-positron-vs-rstudio}
+
+*Prompt: Based on what you learned from Step 1 and Step 3, what do you like about Positron compared with RStudio?*
+
+Positron is built on the same underlying editor framework as VS Code, so it feels noticeably faster and more modern than RStudio, with a cleaner interface and more customizable layout (panels can be rearranged more freely than RStudio's fixed pane structure). It also natively supports both R and Python in the same environment without needing separate installations or workarounds, which matters given the R vs. Python discussion from the previous module — a single editor that treats both languages as first-class citizens removes one more barrier to a team collaborating across languages.
+
+The built-in AI assistant integration is the other standout difference: RStudio has no native AI chat/completion pane, so getting AI help meant switching to a browser tab, while Positron surfaces it directly inside the editor.
+
+::: callout-tip
+## Personal takeaway
+
+The feature I found most useful compared to RStudio was the unified R/Python environment — being able to work in either language without switching applications.
+:::
+
+## AI Tools Inside Positron {#sec-ai-tools}
+
+*Prompt: Describe the various ways you can use AI inside Positron. Some are free while others are not.*
+
+Positron supports AI assistance in a few different ways. Built into the editor is a chat/assistant panel that can connect to different AI model providers, letting you ask questions about your code, request explanations, or generate new code without leaving the editor. Beyond the built-in panel, Positron (being VS Code-based) can also use standard coding-assistant extensions such as GitHub Copilot, which provides inline code completions as you type as well as a chat interface. Some of these options are free (e.g., GitHub Copilot through the free GitHub Student/Education program, or certain free-tier model connections), while others require a paid subscription (e.g., a standard GitHub Copilot Individual/Business plan, or premium model access).
+
+*Prompt: Which AI tools have you installed or set up? Which AI tools did you find beneficial for you?*
+
+I installed and set up two AI tools inside Positron: Positron's **built-in AI Assistant pane**, and the **GitHub Copilot** extension. The built-in Assistant was the most immediately beneficial, since it required no separate account setup and let me ask questions about code directly in the sidebar as soon as I opened the editor. GitHub Copilot was more complicated to set up, since I attempted to apply for the free education account and the verification did not go through (details below) — I ended up trying it briefly under the standard free tier instead, which has much more limited usage than the education account would have.
+
+### GitHub Copilot (Education Account) {#sec-copilot}
+
+*Prompt: I strongly recommend using GitHub Copilot, which is free if you apply for an education account. Apply for it and take a screenshot showing you were accepted into the education program.*
+
+::: callout-important
+## Verification not successful
+
+I applied for the GitHub Student Developer Pack / GitHub Education discount to unlock Copilot's free education tier, but my application was **not approved** — the verification step did not go through successfully. Rather than skip the prompt, I am including a screenshot of the verification outcome below, along with what I did as a result.
+:::
+
+Because the education account was not approved, I was not able to use Copilot under the free education tier for this assignment. I explored two alternatives instead: (1) Positron's own built-in AI Assistant, which required no separate verification, and (2) GitHub Copilot's standard free tier (available to all GitHub accounts, not education-specific), which offers a limited number of monthly completions and chat messages rather than the higher usage limits of the education plan.
+
+Even under the limited standard free tier, I found Copilot more helpful than distracting when I did get to use it — for example, once I wrote one `ggplot2` call, it correctly predicted similar chunks for related plots, saving retyping. It was occasionally distracting when it suggested a full block of code before I had finished thinking through the logic myself, which tempted me to accept a suggestion without fully understanding it. Because my usage was capped by the free tier, I relied more heavily on Positron's built-in Assistant for day-to-day questions, and used Copilot's inline suggestions more sparingly. My overall takeaway is that it works best as a tool for speeding up tasks I already understand, rather than as a substitute for actually learning the underlying R syntax — and that not getting the education account was a real limitation on how much I could evaluate it this module.
+
+## Appendix {#sec-appendix}
+
+- GitHub Repository: <https://github.com/Min-woo0210/IBM6500>
+- GitHub Pages: <https://min-woo0210.github.io/IBM6500>
+
+<!-- If this assignment uses a different repo than M02, replace both links above accordingly. -->
