@@ -39,9 +39,9 @@ This directly supports **reproducibility**: because the code that produced a tab
 
 A few specific things stood out as new to me:
 
-- Using an R Project (`.Rproj`) to fix the working directory automatically, instead of hardcoding file paths.
-- The YAML header controlling both the *appearance* and the *behavior* of the rendered report (e.g., `embed-resources: true` for a self-contained HTML file that doesn't break if I move it).
-- The distinction between writing a report once versus building a reproducible *pipeline* that regenerates the report whenever the underlying data changes.
+-   Using an R Project (`.Rproj`) to fix the working directory automatically, instead of hardcoding file paths.
+-   The YAML header controlling both the *appearance* and the *behavior* of the rendered report (e.g., `embed-resources: true` for a self-contained HTML file that doesn't break if I move it).
+-   The distinction between writing a report once versus building a reproducible *pipeline* that regenerates the report whenever the underlying data changes.
 
 ## Reflections on the Quarto Lecture {#sec-quarto-lecture}
 
@@ -130,5 +130,5 @@ This is where Quarto changes the calculus. Because Quarto documents are not R-sp
 
 ## Appendix {#sec-appendix}
 
-- GitHub Repository: <https://github.com/Min-woo0210/IBM6500>
-- GitHub Pages: <https://min-woo0210.github.io/IBM6500>
+-   GitHub Repository: <https://github.com/Min-woo0210/IBM6500>
+-   GitHub Pages: <https://min-woo0210.github.io/IBM6500>

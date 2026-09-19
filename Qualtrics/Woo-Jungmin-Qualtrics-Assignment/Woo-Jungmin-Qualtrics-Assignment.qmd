@@ -1,0 +1,11 @@
+---
+title: "MR Educational Needs Survey Qualtrics Assignment 1"
+author: "Jungmin Woo"
+format:
+  html:
+    embed-resources: true
+---
+
+![](qualtrics-projects.png){width=100%}
+
+![](qualtrics-projects1.png){width=100%}

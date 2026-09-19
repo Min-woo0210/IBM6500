@@ -80,7 +80,7 @@ Even under the limited standard free tier, I found Copilot more helpful than dis
 
 ## Appendix {#sec-appendix}
 
-- GitHub Repository: <https://github.com/Min-woo0210/IBM6500>
-- GitHub Pages: <https://min-woo0210.github.io/IBM6500>
+-   GitHub Repository: <https://github.com/Min-woo0210/IBM6500>
+-   GitHub Pages: <https://min-woo0210.github.io/IBM6500>
 
 <!-- If this assignment uses a different repo than M02, replace both links above accordingly. -->
