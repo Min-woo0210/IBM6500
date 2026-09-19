@@ -1,0 +1,19 @@
+---
+title: "MR Educational Needs Survey Qualtrics Assignment 1"
+author: "Jungmin Woo"
+format:
+  html:
+    embed-resources: true
+---
+
+## Qualtrics Project
+
+The survey is located in the IBM6500 course folder.
+
+![](qualtrics-projects.png){width=100%}
+
+## Survey Blocks and Question Counts
+
+The survey contains 56 questions organized into five blocks.
+
+![](qualtrics-projects2.png){width=100%}
