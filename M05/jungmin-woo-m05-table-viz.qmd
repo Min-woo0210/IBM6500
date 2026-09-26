@@ -1,0 +1,322 @@
+---
+title: "M05-Visualizing Data with Tables for MSDM CEP"
+author: "Jungmin Woo"
+date: '`r format(Sys.time(), "%B %d, %Y")`'
+format:
+  html:
+    toc: true
+    toc-title: "Contents"
+    toc-depth: 3
+    toc-expand: true
+    number-sections: true
+    code-link: true
+    code-tools: true
+    code-overflow: wrap
+    embed-resources: true
+    theme: cosmo
+editor: visual
+execute:
+  freeze: auto
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(tidyverse)
+library(gt)
+library(gtExtras)
+```
+
+# Introduction
+
+This report reflects on the use of tables for data visualization and demonstrates how the `gt` and `gtExtras` packages can be used to create a professional summary table. Because the Farm Store's transaction data are not yet available, the `pizzaplace` dataset is used to demonstrate an analytical approach that could later be applied to the MSDM Culminating Experience Project (CEP).
+
+The report has three primary purposes:
+
+1.  Reflect on the table-visualization concepts demonstrated in the course videos.
+2.  Create a professional table containing descriptive statistics and small charts.
+3.  Explain how the table design could support inventory and sales analysis for the Farm Store.
+
+::: callout-note
+## CEP Connection
+
+The methods demonstrated in this report can later be applied to the Farm Store's Clover transaction data to compare product categories, sales volume, revenue, average prices, and monthly sales patterns.
+:::
+
+# Reflection on Visualizing Data with Tables
+
+## Prompt 1: Summary of Learning
+
+> **Summarize what you learned from the videos you watched.**
+
+The videos demonstrated that effective table visualization involves much more than displaying raw data. I learned how to use `dplyr` to group and summarize data before passing the results to `gt`. The `gt()` function can create a basic table with very little code, while functions such as `tab_header()`, `cols_label()`, and `tab_stubhead()` improve its organization and readability. I also learned how to format numeric values, adjust column widths, add source notes and footnotes, and highlight important information. The `data_color()` function was especially useful because it transforms numerical values into a heatmap-like presentation. Overall, the videos showed how an ordinary data frame can be converted into a professional, presentation-ready table.
+
+## Prompt 2: Features of `gt` and `gtExtras`
+
+> **What did you like about the `gt` and `gtExtras` packages demonstrated in the videos?**
+
+What I liked most about `gt` was its flexible and iterative workflow. A basic table can be created first and then improved one step at a time by adding titles, readable labels, formatting, notes, colors, and other design elements. Markdown can also be used within table text, which makes titles and notes easier to customize. I also liked that `gt` manages footnote symbols and their order automatically instead of requiring the user to number them manually.
+
+The `gtExtras` package adds another valuable layer by placing small visualizations directly inside table cells. For example, a sparkline can show monthly sales changes while the other columns display exact numerical results. This combination makes the table more visually informative without requiring a separate chart for every product category.
+
+## Prompt 3: How Tables Complement Charts
+
+> **How do tables complement charts for data visualization?**
+
+Charts and tables serve different but complementary purposes. Charts make overall patterns, trends, and differences visually apparent, allowing readers to understand the primary message quickly. Tables provide the precise values needed to verify those patterns or conduct detailed comparisons. A table enhanced with colors and sparklines combines these benefits by preserving exact numbers while also communicating relative performance and changes over time. Therefore, a report can use a chart to introduce an overall finding and a well-designed table to provide supporting detail.
+
+## Prompt 4: When to Use Tables
+
+> **Under what circumstances would you prefer to use tables rather than charts to visualize data?**
+
+I would prefer a table when readers need to locate or compare exact values, especially when several performance measures must be displayed together. Tables are appropriate for reporting figures such as order counts, units sold, revenue, average prices, and percentages across a manageable number of categories. They are also useful when the audience may need to use the results for operational or financial decisions. In contrast, a chart would generally be more appropriate when the primary objective is to communicate a broad pattern or relationship quickly.
+
+::: callout-tip
+## Key Takeaway
+
+A chart is generally more effective for communicating a pattern quickly, while a table is more effective when the audience needs exact numbers. A table containing small visualizations can provide both advantages.
+:::
+
+# Data and Analytics Objective
+
+Because the Farm Store's Clover transaction data are not yet available, this report uses the `pizzaplace` dataset included with the `gt` package.[^1]
+
+[^1]: The `pizzaplace` dataset contains synthetic transaction-level sales data from a fictional pizza restaurant.
+
+The data contain one year of transaction records, including:
+
+-   Order identification numbers
+-   Transaction dates and times
+-   Pizza names and categories
+-   Product sizes
+-   Selling prices
+
+Although the dataset describes pizza sales, its structure is comparable to retail transaction data. Each pizza category can represent a product category, and the individual transaction records can be analyzed in a manner similar to Farm Store Clover records.
+
+The analysis supports the CEP's **Inventory and Operations Analytics** objective. It compares product categories using order volume, units sold, total revenue, average selling price, and monthly revenue trends. These measures could eventually help the Farm Store identify high-performing product categories and make informed inventory decisions.
+
+# Data Preparation
+
+The transaction data were grouped by pizza category to calculate four descriptive measures:
+
+1.  **Unique Orders:** Number of distinct customer orders containing a product from the category.
+2.  **Units Sold:** Number of pizzas sold within the category.
+3.  **Total Revenue:** Sum of sales generated by the category.
+4.  **Average Price:** Average selling price of products in the category.
+
+Monthly revenue was also calculated for each category and stored as a sequence of 12 values. These values are used by `gtExtras` to create the sparklines in @tbl-category-performance.
+
+```{r}
+#| label: prepare-data
+
+# Create category-level descriptive statistics
+category_summary <- pizzaplace |>
+  mutate(
+    date = as.Date(date),
+    month = lubridate::month(date)
+  ) |>
+  group_by(type) |>
+  summarise(
+    total_orders = n_distinct(id),
+    units_sold = n(),
+    total_revenue = sum(price, na.rm = TRUE),
+    average_price = mean(price, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# Calculate monthly revenue for every pizza category
+monthly_trends <- pizzaplace |>
+  mutate(
+    date = as.Date(date),
+    month = lubridate::month(date)
+  ) |>
+  group_by(type, month) |>
+  summarise(
+    monthly_revenue = sum(price, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  arrange(type, month) |>
+  group_by(type) |>
+  summarise(
+    sales_trend = list(monthly_revenue),
+    .groups = "drop"
+  )
+
+# Combine the descriptive statistics and monthly trends
+table_data <- category_summary |>
+  left_join(monthly_trends, by = "type") |>
+  mutate(
+    type = stringr::str_to_title(type)
+  ) |>
+  arrange(desc(total_revenue))
+```
+
+::: callout-important
+## Interpretation Note
+
+Each row in the final table represents one product category. The sparkline shows the direction of monthly revenue from January through December, but it does not replace the exact annual revenue displayed in the table.
+:::
+
+# Table Visualization
+
+::: panel-tabset
+## Category Performance Table
+
+Table @tbl-category-performance combines exact descriptive statistics with monthly sales-trend visualizations. The table demonstrates how sales records could be summarized for a written CEP report or client presentation.
+
+```{r}
+#| label: tbl-category-performance
+#| tbl-cap: "Pizza Sales Performance by Category"
+
+table_data |>
+  gt(rowname_col = "type") |>
+
+  # Add a title and subtitle
+  tab_header(
+    title = md("**Pizza Sales Performance by Category**"),
+    subtitle = md(
+      "Order volume, financial performance, and monthly revenue trends in 2015"
+    )
+  ) |>
+
+  # Add a label to the stub head
+  tab_stubhead(
+    label = "Pizza Category"
+  ) |>
+
+  # Replace variable names with reader-friendly labels
+  cols_label(
+    total_orders = "Unique Orders",
+    units_sold = "Units Sold",
+    total_revenue = "Total Revenue",
+    average_price = "Average Price",
+    sales_trend = "Monthly Revenue Trend"
+  ) |>
+
+  # Group related columns under spanner labels
+  tab_spanner(
+    label = "Sales Volume",
+    columns = c(total_orders, units_sold)
+  ) |>
+  tab_spanner(
+    label = "Financial Performance",
+    columns = c(total_revenue, average_price)
+  ) |>
+
+  # Format order and unit counts with two decimal places
+  fmt_number(
+    columns = c(total_orders, units_sold),
+    decimals = 2,
+    use_seps = TRUE
+  ) |>
+
+  # Format revenue and price as USD
+  fmt_currency(
+    columns = c(total_revenue, average_price),
+    currency = "USD",
+    decimals = 2
+  ) |>
+
+  # Apply heatmap-style color to total revenue
+  data_color(
+    columns = total_revenue,
+    method = "numeric",
+    palette = c("#F1F8E9", "#2E7D32")
+  ) |>
+
+  # Add a footnote to the total revenue label
+  tab_footnote(
+    footnote = paste(
+      "Total Revenue represents the sum of all pizza prices",
+      "within each product category."
+    ),
+    locations = cells_column_labels(
+      columns = total_revenue
+    )
+  ) |>
+
+  # Add the data source
+  tab_source_note(
+    source_note = md(
+      "Source: `pizzaplace` dataset from the **gt** package."
+    )
+  ) |>
+
+  # Align the table header to the left
+  opt_align_table_header(
+    align = "left"
+  ) |>
+
+  # Center numerical values
+  cols_align(
+    align = "center",
+    columns = c(
+      total_orders,
+      units_sold,
+      total_revenue,
+      average_price
+    )
+  ) |>
+
+  # Adjust column widths
+  cols_width(
+    stub() ~ px(140),
+    c(total_orders, units_sold) ~ px(110),
+    c(total_revenue, average_price) ~ px(125),
+    sales_trend ~ px(220)
+  ) |>
+
+  # Add monthly revenue sparklines using gtExtras
+  gtExtras::gt_plt_sparkline(
+    column = sales_trend,
+    type = "shaded",
+    same_limit = TRUE,
+    label = FALSE,
+    palette = c(
+      "#2E7D32",
+      "#1B5E20",
+      "#D32F2F",
+      "#1565C0",
+      "#C8E6C9"
+    )
+  )
+```
+
+## Interpretation
+
+The table compares the four pizza categories using both exact numerical values and monthly revenue patterns. The total revenue column uses color intensity to draw attention to relative financial performance. A darker green cell represents a category with higher total revenue.
+
+The monthly sparklines make it possible to examine changes throughout the year without requiring four separate line charts. Because all sparklines use the same scale, their relative levels and patterns can be compared across categories. The descriptive values and small charts therefore provide both numerical precision and visual context in one presentation.
+:::
+
+# Value to the MSDM CEP
+
+> **Explain why the table is worth adding to your MSDM project written report or presentation slides.**
+
+This table would be valuable in the MSDM CEP report and presentation because it demonstrates how detailed transaction records can be transformed into a concise performance summary. When the Farm Store's Clover data become available, the pizza categories can be replaced with Farm Store product categories such as produce, beverages, gifts, or nursery products.
+
+The exact numbers would help the client compare order volume, units sold, revenue, and average selling price. Meanwhile, the sparklines would reveal monthly or seasonal changes that may not be evident from annual totals alone. This information could support decisions involving:
+
+-   Inventory quantities
+-   Product assortment
+-   Online product selection
+-   Promotional timing
+-   Seasonal purchasing
+-   Identification of high- and low-performing categories
+
+The table could be included in the written report because it provides detailed evidence for analytical conclusions. It could also be included in a presentation because the color scale and sparklines communicate the main findings visually. This combination supports both detailed review and quick interpretation.
+
+# Conclusion
+
+This exercise demonstrated that a table can function as both a reporting tool and a data visualization. The `gt` package provided functions for organizing, labeling, formatting, annotating, and styling the descriptive results. The `gtExtras` package added compact monthly trend charts directly to the table.
+
+The most useful lesson was that a professional table should be designed around the audience's information needs. Exact numbers are important for operational decision-making, while color and sparklines help readers identify patterns efficiently. The same workflow can later be applied to the Farm Store's Clover data to support inventory, sales, and product-assortment decisions.
+
+# Appendix: Publication Links
+
+-   [GitHub Repository](https://github.com/Min-woo0210/IBM6500)
+-   [Published HTML Report](https://min-woo0210.github.io/IBM6500/M05/jungmin-woo-m05-table-viz.html)
