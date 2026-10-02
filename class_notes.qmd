@@ -1,0 +1,23 @@
+---
+title: "Class Notes"
+format: html
+---
+
+## 1. Creating a Template-Based Project in Positron
+
+- Create a new project in Positron using the provided template.
+- Make sure all necessary folders and files are included in the project.
+- Sync or pull the latest version before making changes when collaborating through GitHub.
+
+## 2. Quarto YAML Settings
+
+- The YAML section is located at the top of a `.qmd` file.
+- It controls basic document settings such as the title, author, format, and output options.
+- Proper YAML settings help maintain consistent formatting when rendering the project.
+
+## Individual Action Item – AO2
+
+- Work on PO2 / AO2.
+- Analyze Clover sales and inventory data at the category and SKU level.
+- Identify demand patterns and inventory performance.
+- Use the findings to recommend assortment and replenishment strategies for the Farm Store’s online channel.
