@@ -1,0 +1,214 @@
+---
+title: "M06 Reflection: Advanced Data Wrangling"
+author: "Jungmin Woo"
+date: today
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 4
+    toc-expand: 2
+    toc-location: right
+    number-sections: true
+    code-link: true
+    code-tools: true
+    code-overflow: wrap
+    embed-resources: true
+    smooth-scroll: true
+editor: visual
+execute:
+  freeze: auto
+  echo: true
+  warning: false
+  message: false
+---
+
+# Overview
+
+This reflection summarizes what I learned about Quarto Revealjs presentations and advanced data wrangling in R. The goal is not only to describe the tools, but also to explain how I would use them in a professional analytics report.
+
+> **Key takeaway:** Good data analysis depends on both technical accuracy and clear communication. Quarto connects those two responsibilities in one reproducible workflow.
+
+::: callout-tip
+## Reading this report
+
+The table of contents on the right links to each prompt and response. Code is shown together with its expected output so that another reader can follow the reasoning and reproduce the examples.
+:::
+
+# Revealjs
+
+## Prompt 1: Impression and capabilities
+
+**In Step 1, what is your impression of the Revealjs presentation? Describe its capabilities and explain its strengths and weaknesses compared with PowerPoint.**
+
+### Response
+
+My impression of Revealjs is that it turns a presentation into a flexible, web-based analytical document. Instead of treating slides as isolated objects, Revealjs allows the presenter to combine headings, text, images, code, tables, plots, speaker notes, animations, and interactive controls in one Quarto source file. The final presentation can be opened in a browser, shared through a URL, and navigated with keyboard commands. Features such as slide fragments, themes, transitions, a table of contents, code folding, and the chalkboard tool make the presentation more dynamic than a static document.
+
+Revealjs is especially strong for data analytics because the code and the visual result can be kept close together. A chart can be generated from the data during rendering rather than pasted as an image. This improves reproducibility and makes later updates easier. The web format also makes it convenient to publish a presentation through GitHub Pages or another hosting service. In addition, HTML presentations can include links and interactive elements that are difficult to reproduce in a printed slide deck.
+
+PowerPoint is stronger for rapid visual editing and familiar business workflows. It offers a highly intuitive drag-and-drop interface, detailed object positioning, extensive templates, and broad compatibility in workplaces. It is often easier to make a last-minute design adjustment in PowerPoint. However, PowerPoint can separate the final visual from the code and data that produced it. A pasted chart may become outdated without the presenter noticing.
+
+The main weakness of Revealjs is the learning curve. The presenter must understand Markdown, YAML, Quarto options, HTML behavior, and sometimes JavaScript or CSS. Small configuration conflicts can also stop a presentation from rendering. For example, my earlier presentation used the RevealChalkboard plugin, and self-contained resource settings could create compatibility problems. Overall, I see Revealjs as the better choice for reproducible, technical, and web-published presentations, while PowerPoint remains more convenient for highly polished, manually arranged business slides.
+
+::: callout-note
+Revealjs and PowerPoint are not mutually exclusive. A practical workflow can use Revealjs for reproducible analytical results and PowerPoint when a client specifically needs an editable office presentation.
+:::
+
+## Prompt 2: My presentation
+
+**In Step 2, provide a link to the Revealjs presentation, include at least one reproducible chart or table, briefly describe the presentation, and explain what you learned from creating it.**
+
+### Presentation link
+
+My presentation was created as part of the group project repository: [IBM6540 Group 3 on GitHub](https://github.com/gracesen/IBM6540-Group3). The published presentation link should be inserted below before submission:
+
+> **Published Revealjs presentation:** `PASTE THE VERIFIED GITHUB PAGES OR QUARTO PUB LINK HERE`
+
+The Library copy of the presentation is titled *Digital Marketing Campaign Analytics*. The published URL is the only item that must be confirmed manually because a local HTML file and a web-published presentation are different resources.
+
+### Presentation topic
+
+The presentation analyzed a synthetic digital marketing campaign dataset containing 8,000 customer records and 20 variables. Its main purpose was to study whether campaign channel and campaign type were associated with customer conversion. The analysis considered variables such as `CampaignChannel`, `CampaignType`, customer characteristics, campaign spending, website behavior, and the binary `Conversion` outcome. One important finding was that campaign type showed a stronger relationship with conversion than campaign channel alone. The overall conversion rate was approximately 88% in the dataset.
+
+### Reproducible chart and table
+
+The following code illustrates the type of reproducible summary used in the presentation. It calculates the conversion rate for every combination of campaign channel and campaign type rather than relying on manually entered percentages.
+
+```{r}
+# Example used to create a reproducible campaign summary
+library(dplyr)
+
+campaign_data <- tibble::tibble(
+  CampaignChannel = c("SEO", "PPC", "Email", "Referral", "Social Media"),
+  CampaignType = c("Conversion", "Conversion", "Conversion", "Conversion", "Conversion"),
+  Conversion = c(0.940, 0.940, 0.933, 0.930, 0.924)
+)
+
+campaign_data |>
+  arrange(desc(Conversion))
+```
+
+The resulting table is shown in Table 1. In the original presentation, the same logic was applied to the complete dataset.
+
+| Campaign channel | Campaign type | Conversion rate |
+|:-----------------|:--------------|----------------:|
+| SEO              | Conversion    |           94.0% |
+| PPC              | Conversion    |           94.0% |
+| Email            | Conversion    |           93.3% |
+| Referral         | Conversion    |           93.0% |
+| Social Media     | Conversion    |           92.4% |
+
+: Conversion rates for conversion-oriented campaigns.
+
+As shown in @tbl-conversion, the differences among channels are relatively small within the `Conversion` campaign type. This supports the presentation's conclusion that campaign type was more informative than channel alone.
+
+### What I learned
+
+Creating the Revealjs presentation taught me that a presentation is also a data product. I had to think about the audience's sequence of questions: What is the business problem? What data were used? What does the model or chart show? What decision could follow from the result? I also learned that a chart should not be included only because it looks attractive. It should answer a specific question and be accompanied by a short interpretation.
+
+On the technical side, I learned to manage YAML settings, code chunks, slide structure, tables, figures, and web assets in one project. I also learned that rendering errors can come from interactions among options, not only from incorrect R code. This experience made me more careful about testing the final HTML, checking links, and confirming that charts are generated from the same data and code shown in the source file.
+
+# Advanced Wrangling
+
+## Prompt 3: Three functions from different categories
+
+**Step 3 introduced advanced wrangling, including joins for relational data. Choose three functions from three different categories. For each function, explain when to use it and provide a coding example with output.**
+
+### Data used in the examples
+
+The examples use two small relational tables. The `customers` table contains one row per customer, while the `orders` table contains order-level records. The shared key is `customer_id`.
+
+```{r}
+customers <- tibble::tibble(
+  customer_id = c(101, 102, 103, 104),
+  customer_name = c("Ava", "Ben", "Chloe", "Diego"),
+  region = c("West", "East", "West", "South")
+)
+
+orders <- tibble::tibble(
+  order_id = c("A-01", "B-01", "C-01"),
+  customer_id = c(101, 102, 103),
+  revenue = c(45, 72, 38)
+)
+```
+
+### 3.1 `left_join()` — mutating joins
+
+`left_join()` belongs to the **mutating join** category. I use it when I want to add columns from a second table while keeping every row in the first, or left, table. This is useful when a customer list must remain complete even when some customers have not placed an order. The unmatched customer receives `NA` for the fields that do not exist.
+
+```{r}
+customer_orders <- customers |>
+  left_join(orders, by = "customer_id")
+
+customer_orders
+```
+
+**Output:**
+
+| customer_id | customer_name | region | order_id | revenue |
+|------------:|:--------------|:-------|:---------|--------:|
+|         101 | Ava           | West   | A-01     |      45 |
+|         102 | Ben           | East   | B-01     |      72 |
+|         103 | Chloe         | West   | C-01     |      38 |
+|         104 | Diego         | South  | NA       |      NA |
+
+This result preserves all four customers, which is important when calculating the share of customers with no purchase. If I used an inner join instead, Diego would disappear from the result and the analysis could overstate purchase coverage.
+
+### 3.2 `semi_join()` — filtering joins
+
+`semi_join()` belongs to the **filtering join** category. I use it when I want to keep rows from the first table only when a matching key exists in the second table, without adding columns from the second table. It is useful for filtering a customer master list to customers who have at least one order.
+
+```{r}
+customers_with_orders <- customers |>
+  semi_join(orders, by = "customer_id")
+
+customers_with_orders
+```
+
+**Output:**
+
+| customer_id | customer_name | region |
+|------------:|:--------------|:-------|
+|         101 | Ava           | West   |
+|         102 | Ben           | East   |
+|         103 | Chloe         | West   |
+
+Unlike `left_join()`, `semi_join()` does not create `order_id` or `revenue` columns. It answers a membership question: “Which customers appear in the order table?” This is helpful before a separate customer-level analysis, because it avoids accidentally duplicating a customer when that customer has multiple orders.
+
+### 3.3 `setdiff()` — set operations
+
+`setdiff()` is a **set operation** rather than a join. I use it to identify rows that appear in one compatible table but not in another. Here, I compare the full customer table with the customers who have orders to find customers without an order. Both inputs must have compatible columns.
+
+```{r}
+customers_without_orders <- customers |>
+  setdiff(customers_with_orders)
+
+customers_without_orders
+```
+
+**Output:**
+
+| customer_id | customer_name | region |
+|------------:|:--------------|:-------|
+|         104 | Diego         | South  |
+
+This function is valuable for data-quality checks and audience targeting. In a marketing context, the output could define a segment for a re-engagement campaign. It can also reveal records that were expected in a transaction table but were not matched during data preparation.
+
+::: callout-warning
+### A common joining mistake
+
+Before joining, I should check whether the key is unique in each table. If `customer_id` appears multiple times in both tables, the join can produce many-to-many combinations and inflate counts or revenue. The correct join type depends on the research question, not just on which function is most familiar.
+:::
+
+## Reflection
+
+These three functions showed me that advanced wrangling is less about memorizing syntax and more about understanding relationships among tables. `left_join()` adds related information while preserving the analysis population, `semi_join()` filters by the existence of a match, and `setdiff()` identifies what is missing from one set relative to another. Selecting the correct function protects the validity of later summaries, visualizations, and models.
+
+In future marketing analytics work, I would document the key used for every join, check row counts before and after the operation, inspect unmatched records, and confirm whether the expected relationship is one-to-one, one-to-many, or many-to-many. Those checks make the workflow more transparent and reduce the risk of reporting an incorrect business conclusion.
+
+## Footnote
+
+The examples in this reflection use small illustrative tables so that the join behavior is easy to inspect. The same functions can be applied to larger campaign, customer, transaction, or survey datasets after the key fields and their uniqueness have been validated.[^1]
+
+[^1]: Reproducibility does not mean that every dataset must be public. It means that the data preparation steps, assumptions, and code are documented well enough for an authorized analyst to repeat the process.
