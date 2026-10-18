@@ -1,0 +1,30 @@
+---
+title: "CITI Training Certificate"
+author: "Your Name"
+format: html
+---
+
+## Introduction
+
+I completed the required CITI training for human subjects research through California State Polytechnic University, Pomona.
+
+## CITI Training Completion
+
+I completed the College of Business Administration module, including the CPP Introduction to Human Subjects 101 module, international research, and internet-based research training.
+
+The training covered human subjects protection, informed consent, privacy and confidentiality, risks, vulnerable populations, IRB review, and conflicts of interest.
+
+## Certificate
+
+![CITI Training Certificate](citiprogram.png)
+
+## Conclusion
+
+This training helped me understand the ethical principles and procedures required when conducting research involving human subjects.
+
+## Appendix
+
+- [CPP IRB Protocol Website](https://www.cpp.edu/research/research-compliance/irb/protocol.shtml)
+- [CITI Program Website](https://www.citiprogram.org/)
+- [GitHub Repository](https://github.com/Min-woo0210/IBM6500)
+- [HTML Report](https://min-woo0210.github.io/IBM6500/citi-program/citi-program.html)
