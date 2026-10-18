@@ -27,4 +27,4 @@ This training helped me understand the ethical principles and procedures require
 - [CPP IRB Protocol Website](https://www.cpp.edu/research/research-compliance/irb/protocol.shtml)
 - [CITI Program Website](https://www.citiprogram.org/)
 - [GitHub Repository](https://github.com/Min-woo0210/IBM6500)
-- [HTML Report](https://min-woo0210.github.io/IBM6500/citi-program/citi-program.html)
+- [HTML Report](https://min-woo0210.github.io/IBM6500/CITI-PROGRAM/citi-program.html)
