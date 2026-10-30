@@ -1,0 +1,44 @@
+---
+title: "Group Member Evaluation Form"
+author: "Jungmin Woo"
+date: "October 26, 2026"
+format:
+  html:
+    toc: false
+    self-contained: true
+    css: styles.css
+---
+
+# GROUP MEMBER EVALUATION FORM
+
+**Name:** Jungmin Woo  
+**Date:** October 26, 2026  
+
+**Group Name/Project Name:** GP5 CPP Farm Store at Kellogg Ranch
+
+## Evaluation Instructions
+
+Please evaluate each group member, including yourself, on a scale from 1% to 100%.
+
+If a member contributed equally to the group project, assign 100%. If a member did not complete their fair share of the work, assign a percentage below 100%. This evaluation is confidential and should be completed independently.
+
+If you believe that one group member contributed significantly above and beyond the expectations of a regular group member, identify that person as the MVP.
+
+## Group Member Evaluation
+
+| Member Name | Grade (%) | MVP |
+|:--|:--:|:--:|
+| Jungmin Woo | 100% | No |
+| Cecilia Espina | 100% | No |
+| Danielle Meza | 100% | **Yes** |
+| Julieta Diaz | 100% | No |
+
+*Only one person should be selected as the MVP.*
+
+## Comments on Group Member Contributions
+
+Overall, our team worked well together, and every member made a strong effort to complete their assigned responsibilities. Communication and collaboration were harmonious throughout the project.
+
+I selected Danielle Meza as the MVP because she demonstrated the strongest understanding of the project. She consistently helped other team members better understand the project’s goals, content, and requirements. Her support and guidance made a significant contribution to the quality of our group project.
+
+All group members completed their assigned responsibilities and contributed meaningfully to the project. Therefore, I evaluated each member, including myself, with a score of 100%.

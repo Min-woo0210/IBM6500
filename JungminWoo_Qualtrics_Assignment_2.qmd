@@ -1,0 +1,163 @@
+---
+title: "Qualtrics Assignment 2"
+subtitle: "Social Media Opinion Leader Experimental Design"
+author: "Jungmin Woo"
+institute: "IBM 6500, Cal Poly Pomona"
+date: "`r Sys.Date()`"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    embed-resources: true
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+## Purpose of This Report
+
+This report documents the changes I made to the Qualtrics project **Social Media Opinion Leader-Experimental Design** for Qualtrics Assignment 2. The report focuses on the experimental design, the modification of Question 2.2, and three additional questionnaire improvements.
+
+The screenshots are included to document the relevant Qualtrics settings and to show the complete Survey Flow. The original Qualtrics project is not shared; grading is based on this report.
+
+## Project Preparation
+
+I imported the provided Qualtrics file and renamed the project **Social Media Opinion Leader-Experimental Design**. Before making changes, I reviewed the blocks and questions in the questionnaire, with particular attention to the `social_media_review`, `ads`, and `DV` blocks.
+
+The `social_media_review` and `ads` blocks contain the two alternative advertisement treatments. The `DV` block contains the dependent-variable questions that should be shown to all participants after they view one advertisement treatment.
+
+## Experimental Design and Random Assignment
+
+### Goal of the Experimental Design
+
+The purpose of the experiment is to compare two types of advertisements. Each participant should see only one advertisement treatment, while the two treatment groups should be assigned randomly. After viewing the assigned advertisement, all participants should answer the same dependent-variable questions.
+
+This creates a between-subjects experimental design:
+
+1. Participants enter the survey.
+2. Participants are randomly assigned to one of two conditions.
+3. Participants see only the advertisement block associated with their condition.
+4. Participants continue to the common `DV` block.
+
+### Survey Flow
+
+The Survey Flow uses a Randomizer to assign participants to one of two branches. One branch displays the `social_media_review` block, and the other branch displays the `ads` block. The flow then continues to the common `DV` block.
+
+![Complete Survey Flow](images/survey-flow-complete.png)
+
+*Figure 1. Complete Survey Flow showing the participant path, randomizer, branches, advertisement blocks, and common DV block.*
+
+### Randomizer Settings
+
+The Randomizer was configured to present approximately equal numbers of participants to the two advertisement conditions. The two branches were placed inside the Randomizer so that each participant would be routed to only one advertisement treatment.
+
+![Randomizer Settings](images/randomizer-settings.png)
+
+*Figure 2. Randomizer settings showing the approximately equal assignment of participants to the two conditions.*
+
+### Branch Settings
+
+The first branch routes participants to the `social_media_review` block. The second branch routes participants to the `ads` block. Because the branches are controlled by the Randomizer, participants should not receive both advertisement treatments.
+
+![Social Media Review Branch](images/social-media-review-branch.png)
+
+*Figure 3. Branch leading to the social media review treatment.*
+
+![Advertisement Branch](images/advertisement-branch.png)
+
+*Figure 4. Branch leading to the advertisement treatment.*
+
+### Verification of Random Assignment
+
+I previewed the survey multiple times to check that participants were routed to different advertisement treatments. The preview results showed that the survey did not display both advertisement blocks to the same participant. After either advertisement treatment, the survey continued to the common `DV` block.
+
+![Preview Verification](images/random-assignment-preview.png)
+
+*Figure 5. Preview testing used to verify that the experimental paths work as intended.*
+
+## Improvement of Question 2.2
+
+### Problem with the Original Question
+
+The original Q2.2 asked participants about the total amount of time they spent on social media as a whole. This did not identify the amount of time spent on each individual social-media platform. Therefore, the original question could not provide a separate usage rate for every platform used by a participant.
+
+### Revised Question Design
+
+First, I revised the social-media question so that participants could select every platform they use rather than selecting only one platform. The question was configured as a multiple-answer question.
+
+![Social Media Multiple-Answer Question](images/social-media-multiple-answer.png)
+
+*Figure 6. Revised social-media question allowing participants to select all platforms they use.*
+
+After identifying the platforms used by each participant, I used the **[insert one method: Carry Forward or Piped Text with Display Logic]** method to ask about usage time separately for each selected platform.
+
+![Usage Rate Question Settings](images/usage-rate-settings.png)
+
+*Figure 7. Usage-rate question settings showing the method used to ask about each selected platform.*
+
+![Usage Rate Display Logic](images/usage-rate-display-logic.png)
+
+*Figure 8. Display logic or carry-forward settings used to show the appropriate platform-specific question.*
+
+### Why the Revision Is Better
+
+The revised design is better because it captures usage rates separately for each social-media platform. It avoids combining all platforms into one total and avoids assuming that participants use only the platform they use most often. The resulting data can be used to compare usage patterns across platforms more accurately.
+
+## Three Additional Questionnaire Improvements
+
+### Improvement 1: [Insert Improvement Title]
+
+I improved the questionnaire by **[describe the first improvement you actually made]**.
+
+![Improvement 1](images/improvement-1.png)
+
+*Figure 9. Screenshot documenting the first additional improvement.*
+
+This approach is better because **[explain how the change improves clarity, accuracy, response quality, or participant experience]**.
+
+### Improvement 2: [Insert Improvement Title]
+
+I improved the questionnaire by **[describe the second improvement you actually made]**.
+
+![Improvement 2](images/improvement-2.png)
+
+*Figure 10. Screenshot documenting the second additional improvement.*
+
+This approach is better because **[explain the benefit of the change]**.
+
+### Improvement 3: [Insert Improvement Title]
+
+I improved the questionnaire by **[describe the third improvement you actually made]**.
+
+![Improvement 3](images/improvement-3.png)
+
+*Figure 11. Screenshot documenting the third additional improvement.*
+
+This approach is better because **[explain the benefit of the change]**.
+
+## Final Quality Check
+
+Before submitting the project, I checked the following items:
+
+- The project was renamed **Social Media Opinion Leader-Experimental Design**.
+- Participants are randomly assigned to one of the two advertisement treatments.
+- The two advertisement blocks are not shown to the same participant.
+- The complete Survey Flow is documented.
+- The revised social-media question allows participants to select all platforms they use.
+- Usage time can be collected separately for each selected platform.
+- The common `DV` block is shown after either advertisement treatment.
+- Three additional questionnaire improvements are documented.
+- The screenshots show the relevant Qualtrics settings in sufficient detail.
+
+## Conclusion
+
+The revised Qualtrics questionnaire now supports a between-subjects experimental design. Random assignment helps create comparable treatment groups, and the revised social-media questions provide more detailed information about platform-specific usage. The additional questionnaire improvements also make the survey clearer and more useful for data collection.
+
+## Appendix: Project Links
+
+The following links provide access to the final project materials:
+
+- [GitHub Repository](https://github.com/Min-woo0210/IBM6500)
+- [Published GitHub Pages HTML](https://min-woo0210.github.io/IBM6500/)

@@ -1,0 +1,56 @@
+---
+title: "W10 CP Lecture Notes"
+author: "Jungmin Woo"
+date: "2026-10-29"
+format: html
+---
+
+
+## 1. Course & Curriculum Updates
+
+- **Proposed 3-Unit CEP Course (Target: Fall 2028):**
+  - Planned to provide dedicated faculty advising (10–20 min weekly group meetings).
+  - Total graduation credits will increase (34 -> 37 units) unless an existing required course (e.g., IBM 6010) is converted to an elective.
+  - Three proposed emphasis tracks:
+    1. Content & Creative
+    2. Technical & Performance
+    3. Data & Analytics
+- **Grading & Workload Adjustments:**
+  - 9 past stepping-stone assignments are excluded from direct grading to lower workload; evaluation is incorporated into final written reports.
+  - Secondary data / GA4 / BigQuery assignments are kept as reference materials, not individually graded.
+
+---
+
+## 2. Action Items: Faculty Feedback & Revisions
+
+- **Review CEP 9 Feedback:**
+  - Check feedback from the initial presentation provided by the faculty lead.
+  - List specific task items and assign team members for each task.
+- **Faculty Approvals Needed (Before Next Class / Nov 4):**
+  - Schedule a meeting or send a clear update email to the faculty lead.
+  - Obtain explicit faculty approval on:
+    1. **Analytics Objectives (AO)**
+    2. **Analytics Methods & Variables** (Specify selected methods, rationale, and IV/DV/control variables)
+
+---
+
+## 3. Data Analysis Table (Applying Case 31)
+
+- **Purpose:** Map each Research Question (RQ) or Hypothesis (H) under AOs to constructs, scales, and statistical tests.
+- **Key Columns:**
+  - **Construct:** Focus concept (e.g., reasons to join a credit union).
+  - **Operationalization:** Specific survey item / question number (e.g., Q7).
+  - **Scale Type:** Nominal, Ordinal, Interval, or Ratio.
+  - **Statistical Method:** Selected test based on scale type (e.g., Descriptive stats, One-sample t-test).
+
+---
+
+## 4. BigQuery & GA4 Technical Notes
+
+- **GA4 Data via BigQuery:**
+  - Standard SQL functions used: `SELECT`, `FROM`, `WHERE`, `GROUP BY`, `ORDER BY`, `COUNT`, `SUM`, `AVG`.
+  - $300 free trial credit for 90 days easily covers all course query requirements.
+- **Repository Setup:**
+  - Clone Case 31 repository in RStudio / Positron via Git (`git clone`).
+  - Data preparation and wrangling must be completed ahead of Week 14/15 final presentations.
+', con = "w10_cp_notes.qmd")

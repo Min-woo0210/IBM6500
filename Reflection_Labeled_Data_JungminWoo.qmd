@@ -1,0 +1,155 @@
+---
+title: "Reflection on Labelled Data in R"
+subtitle: "W10 Reflection Assignment"
+author: "Jungmin Woo"
+institute: "IBM 6500, Cal Poly Pomona"
+date: "`r Sys.Date()`"
+format:
+  revealjs:
+    theme: serif
+    width: 1600
+    height: 900
+    footer: "Reflection on Labelled Data in R"
+    transition: slide
+    transition-speed: default
+    incremental: false
+    toc: true
+    toc-depth: 1
+    slide-number: true
+    scrollable: true
+    smaller: true
+    code-fold: false
+    code-overflow: wrap
+    number-sections: false
+    embed-resources: true
+editor: visual
+execute:
+  echo: true
+  freeze: auto
+---
+
+## Purpose of This Reflection
+
+This reflection connects the labelled-data lessons from Module 6 to my MSDM CEP on **student enrollment retention at Cal Poly Pomona**. The purpose is to explain what I learned about labelled data, exploratory data analysis, hypothesis testing, and the two-stage data-cleaning process.
+
+::: {.notes}
+
+This presentation is written for an audience that may not have seen the original assignment prompts. Each prompt is included before my response so that the report can be understood on its own.
+
+:::
+
+## 1. Step 1: Reading SPSS Data, EDA, and Hypothesis Testing
+
+### Prompt 1.1
+
+> In Step 1, you learned how to read SPSS data into RStudio and conduct EDA and hypothesis testing. What is labelled data? Does your MSDM CEP involve labelled data? Explain why or why not.
+
+### Response
+
+Labelled data contains both a stored value and a human-readable meaning for that value. For example, a variable may store `1` and `2`, while its value labels explain that `1` means “continuing student” and `2` means “not continuing.” A variable label describes what the variable measures, while value labels describe the categories represented by the values. This distinction is important because the numbers are codes, not necessarily quantities that should be averaged.
+
+My MSDM CEP does involve labelled data. A student-retention dataset may include categorical variables such as enrollment status, academic level, college, first-generation status, financial-aid status, or responses to survey questions. In an SPSS file, these variables may appear as numeric codes with labels. If the labels are lost during import, the analysis can become difficult to interpret, and a code such as `1` could be misunderstood as a meaningful amount rather than a category.
+
+R makes it possible to preserve and inspect these labels while also converting variables into useful R structures, such as factors. I learned that importing the data is not just a technical step. It is also an interpretation step because the analyst must understand what each code, label, missing-value definition, and measurement level means before conducting an analysis.
+
+### Prompt 1.2
+
+> What techniques are relevant for your MSDM CEP? Please elaborate on how these approaches might help you address your AO for CEP.
+
+### Response
+
+The techniques most relevant to my CEP are data inspection, frequency tables, descriptive statistics, cross-tabulations, visualizations, and hypothesis testing. My CEP’s analysis objective is to understand factors associated with student enrollment retention and to use evidence to support practical recommendations.
+
+::: {.columns}
+
+::: {.column width="48%"}
+
+**Exploratory techniques**
+
+- Frequency tables can show the distribution of categorical variables.
+- Cross-tabulations can compare retention across student groups.
+- Bar charts can communicate group differences clearly.
+- Descriptive statistics can summarize numeric variables such as credits attempted or completed.
+
+:::
+
+::: {.column width="48%"}
+
+**Inferential techniques**
+
+- A chi-square test can assess relationships between categorical variables.
+- A t-test or ANOVA can compare a numeric outcome across groups.
+- Logistic regression can estimate the probability of retention when the outcome is binary.
+- Effect sizes and confidence intervals can show practical importance, not only statistical significance.
+
+:::
+
+:::
+
+These approaches support the AO because they move the project from simply describing students to evaluating patterns that may be relevant to retention. For example, cross-tabulations can identify whether retention rates differ by academic level or financial-aid status. A hypothesis test can help determine whether an observed difference is likely to reflect a broader pattern rather than random variation. The results can then guide recommendations, while still recognizing that an association does not automatically prove causation.
+
+## 2. Step 2: The Initial Data-Cleaning Process
+
+### Prompt 2
+
+> In Step 2, you saw the initial data cleaning process. Describe it and what lessons you got from it.
+
+### Response
+
+The initial cleaning process began with understanding the structure of the imported data before changing it. This included checking the number of rows and columns, examining variable names and types, reviewing labels, and looking for missing or unusual values. The data was then made easier to analyze by selecting relevant variables, correcting data types, and identifying values that should be treated as missing.
+
+The most important lesson was that cleaning should be systematic and documented. An analyst should not immediately delete observations just because they look unusual. First, the analyst should ask whether the value is a legitimate response, a special missing-value code, a data-entry problem, or a value that requires further investigation. The original data should also be preserved so that every transformation can be explained and reproduced.
+
+I also learned that labelled data requires special care. A numeric code may look valid even when its label indicates “not applicable” or “missing.” Therefore, frequency tables and visual inspection are essential before analysis. Cleaning is not merely formatting; it affects the meaning of the final dataset and the conclusions that can be drawn from it.
+
+## 3. Step 3: The Next Phase of Data Cleaning
+
+### Prompt 3
+
+> In Step 3, you saw the next phase of data cleaning. Describe it and what the key takeaways are.
+
+### Response
+
+The next phase applied more substantive quality checks after the basic structure of the data had been understood. The analyst examined whether observations were complete enough for the planned analysis and whether responses were internally consistent. This phase can include removing or flagging duplicate records, incomplete cases, invalid values, impossible combinations, and responses that do not meet the study’s quality criteria.
+
+For a student-retention project, this means defining the analysis sample carefully. The outcome must be available, the predictors must be coded consistently, and the inclusion criteria must match the research question. If survey data is used, response-quality checks may also include excessive missingness, very fast completion, repeated answers across a long battery of questions, or failed attention checks when those checks are part of the study design.
+
+The key takeaway is that there is no single universal cleaning rule. Every exclusion should have a reason connected to the research objective. Cleaning decisions should be recorded in a workflow so that another person can understand how the raw data became the final analytic sample. At the same time, overly aggressive cleaning can remove real students or legitimate variation, so the analyst should balance data quality with representativeness.
+
+## 4. Comparing the Two Approaches
+
+### Prompt 4
+
+> What are the big differences between the two approaches and the impact on the final sample size and response quality?
+
+### Response
+
+The first approach is primarily structural and diagnostic. It focuses on learning what the dataset contains, preserving labels, identifying missing-value codes, correcting formats, and preparing variables for analysis. Its goal is to create a trustworthy working dataset without making unnecessary exclusions.
+
+The second approach is more analytical and quality-focused. It applies the study’s inclusion criteria and evaluates whether each observation is sufficiently complete, valid, and useful for answering the research question. It may exclude observations that technically exist in the raw file but do not provide reliable information for the planned analysis.
+
+The main impact is a tradeoff between sample size and response quality:
+
+| Approach | Main purpose | Expected effect on sample size | Expected effect on quality |
+|---|---|---:|---|
+| Initial cleaning | Understand and standardize the data | Usually preserves more cases | Improves consistency and interpretability |
+| Substantive cleaning | Apply eligibility and response-quality rules | Usually reduces the analytic sample | Improves completeness, validity, and relevance |
+
+The final sample is therefore often smaller after the second approach, but it should be more appropriate for the research question. A smaller, well-defined sample can produce more credible results than a larger sample containing invalid, duplicate, or poorly completed records. However, exclusions can also introduce bias if certain student groups are removed at higher rates than others. For that reason, the analyst should compare the retained and excluded cases whenever possible and report the cleaning rules clearly.
+
+## Overall Reflection
+
+The main lesson from this module is that data analysis begins before any statistical test is run. Understanding labels protects the meaning of the variables, EDA reveals patterns and problems, and careful cleaning determines which observations can support the conclusions.
+
+For my CEP, these steps will help ensure that recommendations about enrollment retention are based on data that is interpretable, reproducible, and appropriately connected to the analysis objective.
+
+## References
+
+- Module 6 course materials: Labelled Data, Exploratory Data Analysis, and Data Cleaning in R.
+- Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). *R for Data Science* (2nd ed.). O'Reilly Media.
+
+::: {.aside}
+
+**Note.** The exact final sample size should be reported from the project dataset after the cleaning code is completed. This reflection explains the expected direction and methodological impact without inventing a number.
+
+:::
